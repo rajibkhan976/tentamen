@@ -1,7 +1,13 @@
 get = (req, res, next) => {
-  req.models.Listing.find().then((listings) => {
-      return res.send(listings);
-    }).catch((error) => next(error))
+	var searchQuery;
+	if (req.query.type) {
+		searchQuery = req.models.Listing.findOne({type: req.query.type});
+	} else {
+		searchQuery = req.models.Listing.find();
+	}
+	  searchQuery.exec().then((listings) => {
+		  return res.send(listings);
+		}).catch((error) => next(error))
 }
 
 addToListing = (req, res, next) => {
