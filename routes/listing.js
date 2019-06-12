@@ -65,8 +65,22 @@ updateListingById = (req, res, next) => {
 	})
 }
 
+deleteListingById = (req, res, next) => {
+	req.models.Listing.findByIdAndDelete(req.params.id)
+	.then((deleted) => {
+		if (deleted) {
+			return res.send(deleted).status(200);
+		}
+		res.sendStatus(204);
+	})
+	.catch((error) => {
+		next(error);
+	})
+}
+
 module.exports = {
   get,
   addToListing,
-  updateListingById
+  updateListingById,
+  deleteListingById
 }
