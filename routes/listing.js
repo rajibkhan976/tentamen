@@ -2,7 +2,7 @@
 get = (req, res, next) => {
 	var searchQuery;
 	if (req.query.type) {
-		searchQuery = req.models.Listing.findOne({type: req.query.type});
+		searchQuery = req.models.Listing.find({type: req.query.type});
 	} else {
 		searchQuery = req.models.Listing.find();
 	}
