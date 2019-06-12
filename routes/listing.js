@@ -1,3 +1,4 @@
+//method for showing and matching listings
 get = (req, res, next) => {
 	var searchQuery;
 	if (req.query.type) {
@@ -9,7 +10,7 @@ get = (req, res, next) => {
 		  return res.send(listings);
 		}).catch((error) => next(error))
 }
-
+//method for adding item to listings
 addToListing = (req, res, next) => {
 	req.models.Listing.create({
 		type: req.body.type,
@@ -31,7 +32,7 @@ addToListing = (req, res, next) => {
 		next(error);
 	})
 }
-
+//method for updating item in listings
 updateListingById = (req, res, next) => {
 	req.models.Listing.updateOne({_id: req.params.id}, {
 		type: req.body.type,
@@ -64,7 +65,7 @@ updateListingById = (req, res, next) => {
 		next(error);
 	})
 }
-
+//method for deleting item from listings
 deleteListingById = (req, res, next) => {
 	req.models.Listing.findByIdAndDelete(req.params.id)
 	.then((deleted) => {
