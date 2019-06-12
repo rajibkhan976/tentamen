@@ -67,7 +67,7 @@ updateListingById = (req, res, next) => {
 }
 //method for deleting item from listings
 deleteListingById = (req, res, next) => {
-	req.models.Listing.findByIdAndDelete(req.params.id)
+	req.models.Listing.findOneAndDelete({_id: req.params.id})
 	.then((deleted) => {
 		if (deleted) {
 			return res.send(deleted).status(200);
