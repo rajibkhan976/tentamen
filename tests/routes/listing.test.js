@@ -27,9 +27,24 @@ afterEach( () => {
 
 	const expected = {
 		//...
-	}
+		"address": {
+			"geo": {
+				"lat":11,
+				"lng":14
+				},
+				"city":"Vaxjo",
+				"municipality":"Vaxjo",
+				"street":"PG 12"
+				},
+				"_id":"5d00b19fa886171528c5dfc4",
+				"type":"villa",
+				"price":"50,000 SEK",
+				"monthly_fee":"5000 SEK",
+				"bidding_status":"inactive",
+				"__v":0
+	};
 
-describe('users.get', ()  => {
+describe('listings.get', ()  => {
 
 	it('Should return an array of all listings', (done) => {
 
@@ -49,5 +64,20 @@ describe('users.get', ()  => {
 			done();
 		});
 	});
-
+	
+	it('Should return a listing by type', (done) => {
+		Mock
+		.expects('findOne')
+		.withArgs({"type": "villa"})
+		.chain('exec')
+		.resolves(expected);
+		
+		agent
+		.get('/listings?type=villa')
+		.end((err, res) => {
+			expect(res.status).to.equal(200);
+			expect(res.body).to.eql(expected);
+			done();
+		})
+	});
 });
